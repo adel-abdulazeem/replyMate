@@ -1,0 +1,42 @@
+{
+  "name": "reply-mate",
+  "version": "1.0.0",
+  "description": "A Node.js application that leverages a local LLM model to automatically draft reply messages to client inquiries received via Facebook page and WhatsApp during marketing campaigns. It streamlines communication by generating relevant, context-aware responses, helping marketing teams efficiently manage and engage with clients.",
+  "main": "server.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server",
+    "dev": "cross-env NODE_ENV=development nodemon server",
+    "worker": "node ./workers/messageWorker.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "type": "module",
+  "author": "Adel Abdulazeem",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bcrypt": "^6.0.0",
+    "bullmq": "^5.56.8",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.19.2",
+    "express-flash": "^0.0.2",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "ioredis": "^5.6.1",
+    "logger": "^0.0.1",
+    "morgan": "^1.10.0",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.3",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@eslint/json": "^0.12.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.28.0",
+    "globals": "^16.2.0",
+    "nodemon": "^3.1.9"
+  }
+}
