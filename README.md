@@ -1,3 +1,6 @@
+
+<img width="300" height="400" alt="Untitled diagram _ Mermaid Chart-2025-08-01-183727" src="https://github.com/user-attachments/assets/cf9c6618-0dfd-440e-92b5-4edb6a8e3235" />
+
 ## Social Media AI Response System MVP
 
 ### Features
@@ -9,6 +12,30 @@
 - 📊 Dashboard for message management
 
 ### Setup
+- **Env file setup:**
+-> create .env file in ./config/
+```.evn
+PORT=
+REDIS_URL=
+OLLAMA_MODEL=
+
+# Facebook
+FACEBOOK_PAGE_ACCESS_TOKEN=your_facebook_token
+FACEBOOK_VERIFY_TOKEN=your_verify_token
+FACEBOOK_PAGE_ID=your_page_id
+
+# WhatsApp
+WHATSAPP_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
+VERIFY_TOKEN=your_verify_token
+
+# Security
+WEBHOOK_SECRET=your_webhook_secret
+
+# Confidence thresholds
+AUTO_SEND_CONFIDENCE=0.85
+MANUAL_REVIEW_CONFIDENCE=0.5
+```
 
 1. **Install dependencies:**
 ```bash
@@ -59,4 +86,8 @@ Webhook → Queue → AI Analysis → Auto-send (high confidence) | Human Review
 - Add conversation context/memory
 - Implement message templates
 - Add analytics and reporting
+
 - Scale with Docker containers
+
+
+
