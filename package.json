@@ -14,6 +14,7 @@
   "author": "Adel Abdulazeem",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.55.0",
     "axios": "^1.6.0",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.56.8",

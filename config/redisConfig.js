@@ -3,14 +3,14 @@ import dotenv from 'dotenv';
 
 import { logger } from "../utilis/logger.js";
 
-dotenv.config({ path: `./config/.env`});
+dotenv.config({ path: `./config/.env` });
 
 const redisConfig = {
-  host: process.env.REDIS_HOST ,
+  host: process.env.REDIS_HOST,
   port: Number(process.env.REDIS_PORT),
-  password: process.env.REDIS_PASSWORD ,
+  password: process.env.REDIS_PASSWORD,
   db: process.env.REDIS_DB || 0,
-  maxRetriesPerRequest: null,
+  maxRetriesPerRequest: 2,
   retryDelayOnFailover: 100,
   enableOfflineQueue: false,
   lazyConnect: true,
@@ -28,7 +28,7 @@ const redisConfig = {
 // Connection with reconnection logic
 const redisClient = () => {
   const redis = new Redis(redisConfig);
-  
+
   redis.on('connect', () => logger.info('✅ Redis connected'));
   redis.on('error', (err) => logger.error('❌ Redis error:', err));
   redis.on('close', () => logger.warn('⚠️ Redis connection closed'));
@@ -44,7 +44,8 @@ const checkRedisConnection = async () => {
   } catch (err) {
     logger.fatal('❌ Initial Redis connection failed:', err.message);
     throw err;
-  }};
+  }
+};
 
-export {redisClient, checkRedisConnection }
+export { redisClient, checkRedisConnection }
 

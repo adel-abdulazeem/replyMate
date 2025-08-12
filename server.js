@@ -10,10 +10,11 @@ import { webhookRouter } from './routes/webhooks.js';
 import { dashboardRouter } from './routes/dashboard.js';
 import { logger } from './utilis/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import {redisClient, checkRedisConnection } from './config/redisConfig.js';
+import { checkSupabaseConnection } from './config/supabaseConfig.js';
+import { redisClient, checkRedisConnection } from './config/redisConfig.js';
 
 const env = process.env.NODE_ENV;
-dotenv.config({ path: `./config/.env.${env}`});
+dotenv.config({ path: `./config/.env.${env}` });
 
 const app = express();
 
@@ -62,7 +63,7 @@ const gracefulShutdown = async () => {
       logger.info('✅ HTTP server closed');
       try {
         await redisClient.pause(true);
-        await redisClient.close();  
+        await redisClient.close();
         await redisClient.quit();
         logger.info('✅ Redis disconnected');
       } catch (e) {
@@ -85,9 +86,10 @@ const port = process.env.PORT || 4000;
 const boot = async () => {
   try {
     await Promise.all([
+      checkSupabaseConnection(),
       checkRedisConnection()
     ]);
-   server = app.listen(port, () => {
+    server = app.listen(port, () => {
       logger.info(`🚀 Server running in ${process.env.NODE_ENV} on port ${port}`);
     });
   } catch (err) {
@@ -96,4 +98,7 @@ const boot = async () => {
   }
 };
 
-boot();
+boot().catch(err => {
+  logger.error('❌ Boot failed:', err.message);
+  process.exit(1);
+});
